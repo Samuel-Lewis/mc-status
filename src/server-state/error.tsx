@@ -1,9 +1,9 @@
-import React from 'react';
-import { Result } from 'antd';
+import React from "react";
+import { Result } from "antd";
 
 export type ErrorProps = {
-  message?: string
-}
+  message?: string;
+};
 
 export default function Error(props: ErrorProps) {
   return (
@@ -12,6 +12,5 @@ export default function Error(props: ErrorProps) {
       title="Failed to fetch server details"
       subTitle={props.message}
     />
-  )
-
+  );
 }
