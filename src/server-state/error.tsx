@@ -1,21 +1,17 @@
 import React from 'react';
-import Status from './status'
+import { Result } from 'antd';
 
-export default class Error extends Status {
-  render() {
-    if (!this.props.data) {
-      return (
-        <div>Loading...</div>
-      )
-    }
+export type ErrorProps = {
+  message?: string
+}
 
-    const { online, error } = this.props.data;
+export default function Error(props: ErrorProps) {
+  return (
+    <Result
+      status="error"
+      title="Failed to fetch server details"
+      subTitle={props.message}
+    />
+  )
 
-    return (
-      <div>
-        {!online && <div>Offline</div>}
-        {error && <pre>{error}</pre>}
-      </div>
-    )
-  }
 }

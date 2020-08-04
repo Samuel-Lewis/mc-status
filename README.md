@@ -1,8 +1,6 @@
 
 https://mcapi.us/
 
-
-
 - Status: mc.hypixel.net
 - Query: MCVantage.net
 - Plugins: insanecookies.myserver.gs 
