@@ -1,8 +1,12 @@
 import React from "react";
-import { Collapse, Avatar } from "antd";
+import { Collapse, Row, Col, Divider } from "antd";
 
 import Loading from "./loading";
 import Error from "./error";
+
+import { ServerAvatar } from "./components/server-avatar";
+import { Online } from "./components/online";
+import { PlayerCount } from "./components/player-count";
 
 export type Payload = {
   status: string;
@@ -82,20 +86,27 @@ export class ServerStatus extends React.Component<ServerProps, ServerState> {
       return <Error message={data ? data.error : "No data found??"} />;
     }
 
-    const { online } = data;
-
     return (
       <>
-        <h2>{online ? "Online!" : "Offline"}</h2>
-        {data.favicon && (
-          <Avatar src={data.favicon} size={128} shape="square" />
-        )}
-
-        <Collapse ghost style={{ textAlign: "initial" }}>
-          <Collapse.Panel header="Raw Data" key="1">
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-          </Collapse.Panel>
-        </Collapse>
+        <Row>
+          <Col span={6}>
+            <ServerAvatar src={data.favicon} />
+          </Col>
+          <Col span={18} style={{ textAlign: "initial" }}>
+            <Online status={data.online} />
+            <PlayerCount data={data.players} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <Divider />
+            <Collapse ghost style={{ textAlign: "initial" }}>
+              <Collapse.Panel header="Raw Data" key="1">
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+              </Collapse.Panel>
+            </Collapse>
+          </Col>
+        </Row>
       </>
     );
   }

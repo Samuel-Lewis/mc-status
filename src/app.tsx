@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { ServerStatus } from "./server-state/server";
-import { Button, Layout, Form, Input } from "antd";
+import { Typography, Button, Layout, Form, Input, Divider } from "antd";
 
 import "antd/dist/antd.css";
 
@@ -22,7 +22,7 @@ function App() {
     <Layout className="layout">
       <Header>
         <div className="logo" />
-        Minecraft Server Status
+        <Typography.Title>Minecraft Server Status</Typography.Title>
       </Header>
       <Content className="layout-content">
         <Form
@@ -42,6 +42,8 @@ function App() {
             </Button>
           </Form.Item>
         </Form>
+
+        <Divider />
 
         {paramIp && <ServerStatus key={paramIp} address={paramIp} />}
       </Content>
