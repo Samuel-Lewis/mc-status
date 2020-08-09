@@ -1,5 +1,8 @@
+# Minecraft Server Status Checker
 
-- Status: mc.hypixel.net
-- Query: MCVantage.net
-- Plugins: insanecookies.myserver.gs 
-- Offline: 54.39.169.121
+https://samuel-lewis.github.io/mc-status/
+
+This is mainly a sandbox for me to test and play with
+- API calls
+- React and deployments (even though I'm just using tools)
+- [Ant Design](https://ant.design/)
