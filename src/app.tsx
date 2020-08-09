@@ -1,9 +1,8 @@
 import React from "react";
-import "./App.css";
 import { ServerStatus } from "./server-state/server";
 import { Typography, Button, Layout, Form, Input, Divider } from "antd";
-
 import "antd/dist/antd.css";
+import "./App.css";
 
 const { Header, Footer, Content } = Layout;
 
@@ -32,26 +31,21 @@ function App() {
           initialValues={{ ip: paramIp }}
           onFinish={onFinish}
         >
-          <Form.Item label="Server IP" name="ip">
+          <Form.Item label="Server IP:" name="ip">
             <Input />
           </Form.Item>
-
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Go!
             </Button>
           </Form.Item>
         </Form>
-        <a href="/?ip=mc.hypixel.net">Status</a> |{" "}
-        <a href="/?ip=MCVantage.net">Query</a> |{" "}
-        <a href="/?ip=insanecookies.myserver.gs ">Plugins</a> |{" "}
-        <a href="/?ip=54.39.169.121">Offline</a>
         <Divider />
         {paramIp && <ServerStatus key={paramIp} address={paramIp} />}
       </Content>
       <Footer className="layout-footer">
-        Created by Samuel Lewis |{" "}
-        <a href="https://github.com/Samuel-Lewis">GitHub</a>
+        Created by <a href="https://github.com/Samuel-Lewis">Samuel Lewis</a> |{" "}
+        Avatars by <a href="https://crafatar.com">Crafatar</a>
       </Footer>
     </Layout>
   );

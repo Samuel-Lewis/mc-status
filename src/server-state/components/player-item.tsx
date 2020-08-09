@@ -1,16 +1,24 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import { List, Avatar } from "antd";
 
-export type PlayerDataType = {
-  id?: string;
-  name?: string;
-  legacy?: boolean;
-  demo?: boolean;
-};
+export const PlayerItem = (props: { name: string }) => {
+  const [uuid, setUuid] = useState("");
+  useEffect(() => {
+    const { name } = props;
+    if (!name) {
+      return;
+    }
 
-export const PlayerItem = (props: PlayerDataType) => {
-  const { name, id } = props;
+    fetch(`https://api.minetools.eu/uuid/${name}`)
+      .then((res) => res.json())
+      .then((response) => {
+        console.log({ response });
+        setUuid(response.id);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [props]);
 
   return (
     <List.Item.Meta
@@ -18,10 +26,18 @@ export const PlayerItem = (props: PlayerDataType) => {
         <Avatar
           shape="square"
           size="large"
-          src={`https://crafatar.com/renders/body/${id}?overlay`}
+          src={`https://crafatar.com/renders/head/${uuid}?overlay`}
         />
       }
-      title={name}
+      title={
+        <a
+          href={`https://namemc.com/profile/${props.name}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {props.name}
+        </a>
+      }
     />
   );
 };

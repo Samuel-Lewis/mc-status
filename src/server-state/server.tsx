@@ -10,8 +10,8 @@ import { PlayerCount } from "./components/player-count";
 import { PlayerList } from "./components/player-list";
 
 export type Payload = {
-  status: string;
-  online: boolean;
+  status?: string;
+  online?: boolean;
   error?: string;
   motd?: string;
   favicon?: string;
@@ -41,6 +41,31 @@ export type ServerState = {
   error?: Error;
 };
 
+const isObject = (item: any) => {
+  return item && typeof item === "object" && !Array.isArray(item);
+};
+
+const mergePositive = (lhs: any, rhs: any) => {
+  const result = Object.assign({}, lhs);
+
+  Object.keys(rhs).forEach((key) => {
+    const current = result[key];
+    const value = rhs[key];
+
+    if (isObject(value)) {
+      result[key] = mergePositive(current, value);
+      return;
+    }
+
+    if (!current) {
+      result[key] = value;
+      return;
+    }
+  });
+
+  return result;
+};
+
 export class ServerStatus extends React.Component<ServerProps, ServerState> {
   constructor(props: ServerProps) {
     super(props);
@@ -51,7 +76,7 @@ export class ServerStatus extends React.Component<ServerProps, ServerState> {
     fetch(`https://mcapi.us/server/status?ip=${this.props.address}`)
       .then((response) => response.json())
       .then((data) => {
-        const merged = Object.assign({}, this.state.data, data);
+        const merged = mergePositive(this.state.data, data);
         this.setState({ data: merged, loading: false });
       })
       .catch((error) => {
@@ -62,8 +87,8 @@ export class ServerStatus extends React.Component<ServerProps, ServerState> {
     fetch(`https://mcapi.us/server/query?ip=${this.props.address}`)
       .then((response) => response.json())
       .then((data) => {
-        const merged = Object.assign({}, this.state.data, data);
-        this.setState({ data: merged, loading: false });
+        const merged = mergePositive(this.state.data, data);
+        this.setState({ data: merged });
       })
       .catch((error) => {
         this.setState({ error, loading: false });
