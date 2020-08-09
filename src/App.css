@@ -2,6 +2,10 @@
   min-height: 100vh !important;
 }
 
+.layout-header h1 {
+  color: lightgray !important;
+}
+
 .layout-content {
   padding: 16px;
   margin: auto;

@@ -20,8 +20,7 @@ function App() {
 
   return (
     <Layout className="layout">
-      <Header>
-        <div className="logo" />
+      <Header className="layout-header">
         <Typography.Title>Minecraft Server Status</Typography.Title>
       </Header>
       <Content className="layout-content">

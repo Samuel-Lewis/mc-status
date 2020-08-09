@@ -7,6 +7,7 @@ import Error from "./error";
 import { ServerAvatar } from "./components/server-avatar";
 import { Online } from "./components/online";
 import { PlayerCount } from "./components/player-count";
+import { PlayerList } from "./components/player-list";
 
 export type Payload = {
   status: string;
@@ -88,16 +89,23 @@ export class ServerStatus extends React.Component<ServerProps, ServerState> {
 
     return (
       <>
-        <Row>
-          <Col span={6}>
+        <Row gutter={[16, 16]}>
+          <Col flex="128px">
             <ServerAvatar src={data.favicon} />
           </Col>
-          <Col span={18} style={{ textAlign: "initial" }}>
+          <Col style={{ textAlign: "initial" }}>
             <Online status={data.online} />
             <PlayerCount data={data.players} />
           </Col>
         </Row>
-        <Row>
+
+        <Row gutter={[16, 16]}>
+          <Col span={24}>
+            <PlayerList data={data.players} />
+          </Col>
+        </Row>
+
+        <Row gutter={[16, 16]}>
           <Col span={24}>
             <Divider />
             <Collapse ghost style={{ textAlign: "initial" }}>
