@@ -51,9 +51,8 @@ export class ServerStatus extends React.Component<ServerProps, ServerState> {
     fetch(`https://mcapi.us/server/status?ip=${this.props.address}`)
       .then((response) => response.json())
       .then((data) => {
-        if (!this.state.data) {
-          this.setState({ data, loading: false });
-        }
+        const merged = Object.assign({}, this.state.data, data);
+        this.setState({ data: merged, loading: false });
       })
       .catch((error) => {
         this.setState({ error, loading: false });
@@ -63,9 +62,8 @@ export class ServerStatus extends React.Component<ServerProps, ServerState> {
     fetch(`https://mcapi.us/server/query?ip=${this.props.address}`)
       .then((response) => response.json())
       .then((data) => {
-        if (data.online) {
-          this.setState({ data, loading: false });
-        }
+        const merged = Object.assign({}, this.state.data, data);
+        this.setState({ data: merged, loading: false });
       })
       .catch((error) => {
         this.setState({ error, loading: false });

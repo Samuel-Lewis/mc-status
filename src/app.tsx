@@ -25,6 +25,7 @@ function App() {
       </Header>
       <Content className="layout-content">
         <Form
+          style={{ textAlign: "center" }}
           name="basic"
           layout="vertical"
           size="large"
@@ -41,9 +42,11 @@ function App() {
             </Button>
           </Form.Item>
         </Form>
-
+        <a href="/?ip=mc.hypixel.net">Status</a> |{" "}
+        <a href="/?ip=MCVantage.net">Query</a> |{" "}
+        <a href="/?ip=insanecookies.myserver.gs ">Plugins</a> |{" "}
+        <a href="/?ip=54.39.169.121">Offline</a>
         <Divider />
-
         {paramIp && <ServerStatus key={paramIp} address={paramIp} />}
       </Content>
       <Footer className="layout-footer">
