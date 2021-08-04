@@ -19,13 +19,13 @@ const Details: React.FunctionComponent<DetailsProps> = ({ data }) => {
         </Col>
         <Col style={{ textAlign: "initial" }}>
           <Online status={data.online} />
-          <PlayerCount data={data.players} />
+          <PlayerCount players={data.players} />
         </Col>
       </Row>
 
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <PlayerList data={data} />
+          <PlayerList players={data.players} />
         </Col>
       </Row>
 

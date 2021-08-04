@@ -82,19 +82,25 @@ export class ServerStatus extends React.Component<ServerProps, ServerState> {
       statusLoaded,
       queryLoaded,
     } = this.state;
+
     if (!statusLoaded && !queryLoaded) {
       return <Loading />;
     }
 
     if (!data || Object.keys(data).length === 0) {
-      const errorMsg = [statusError, queryError].filter((e) => e).join("/");
-      return <Error message={errorMsg} />;
+      if (statusLoaded && queryLoaded) {
+        const errorMsg = [statusError, queryError].filter((e) => e).join("/");
+        return <Error message={errorMsg} />;
+      } else {
+        return <Loading />;
+      }
     }
 
-    if (!data || data.error || data.status === "error") {
-      return <Error message={data ? data.error : "No data found??"} />;
+    if (data.error || data.status === "error") {
+      if (statusLoaded && queryLoaded) {
+        return <Error message={data ? data.error : "No data found??"} />;
+      }
     }
-
     return <Details data={data} key={JSON.stringify(data)} />;
   }
 }

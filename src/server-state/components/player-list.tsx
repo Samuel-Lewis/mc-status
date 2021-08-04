@@ -5,17 +5,28 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 import { PlayerItem } from "./player-item";
 import { Payload } from "../types";
 
-export const PlayerList: React.FunctionComponent<{ data: Payload }> = ({
-  data,
+type PlayerListProps = {
+  players: Payload["players"];
+};
+
+export const PlayerList: React.FunctionComponent<PlayerListProps> = ({
+  players,
 }) => {
+  if (!players) {
+    return null;
+  }
   const playerMap = new Map<string, string | undefined>();
-  data?.players?.list?.forEach((p) => playerMap.set(p, undefined));
-  data?.players?.sample?.forEach((p) => playerMap.set(p.name!, p.id!));
+  players?.list?.forEach((p) => playerMap.set(p, undefined));
+  players?.sample?.forEach((p) => playerMap.set(p.name!, p.id!));
 
   console.log("PLAYERMAP", playerMap);
   if (playerMap.size === 0) {
     return null;
   }
+
+  const playerList = Array.from(playerMap).sort((a, b) =>
+    a[0].localeCompare(b[0])
+  );
 
   const InfoContent = (
     <div style={{ width: "300px" }}>
@@ -49,7 +60,7 @@ export const PlayerList: React.FunctionComponent<{ data: Payload }> = ({
           xl: 4,
           xxl: 5,
         }}
-        dataSource={Array.from(playerMap)}
+        dataSource={playerList}
         size="large"
         renderItem={([name, id]) => (
           <List.Item>
