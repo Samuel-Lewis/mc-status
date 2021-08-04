@@ -1,14 +1,17 @@
-import React from "react";
-import { Typography } from "antd";
-import { TeamOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import motdparser from "mcmotdparser";
 
 import { Payload } from "../types";
 
-export const Motd: React.FunctionComponent<Payload> = ({ motd }) => {
-  if (!motd) {
+export const MotD: React.FunctionComponent<Payload> = ({ motd }) => {
+  const [motdHtml, setMotdHtml] = useState("");
+  useEffect(() => {
+    motdparser.toHtml(motd, (err: any, res: any) => setMotdHtml(res));
+  }, [motd]);
+
+  if (!motd?.trim()) {
     return null;
   }
 
-  const parseMotd = "";
-  return <Typography.Text strong>{parseMotd}</Typography.Text>;
+  return <div dangerouslySetInnerHTML={{ __html: motdHtml }}></div>;
 };

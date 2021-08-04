@@ -34,7 +34,7 @@ export const PlayerList: React.FunctionComponent<PlayerListProps> = ({
         Servers are able to control a "sample" of players online, and may use
         this for extra metadata or advertisment.
       </p>
-      <p>Ocassionaly, servers may also report nicknames.</p>
+      <p>Occasionally, servers may also report nicknames.</p>
     </div>
   );
   const InfoPopover = (

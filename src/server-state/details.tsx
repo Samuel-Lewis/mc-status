@@ -4,6 +4,7 @@ import { ServerAvatar } from "./components/server-avatar";
 import { Online } from "./components/online";
 import { PlayerCount } from "./components/player-count";
 import { PlayerList } from "./components/player-list";
+import { MotD } from "./components/motd";
 import { Payload } from "./types";
 
 type DetailsProps = {
@@ -20,6 +21,7 @@ const Details: React.FunctionComponent<DetailsProps> = ({ data }) => {
         <Col style={{ textAlign: "initial" }}>
           <Online status={data.online} />
           <PlayerCount players={data.players} />
+          <MotD motd={data.motd} />
         </Col>
       </Row>
 
