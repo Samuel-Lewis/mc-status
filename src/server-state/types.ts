@@ -1,3 +1,8 @@
+export type Player = {
+  id?: string;
+  name?: string;
+};
+
 export type Payload = {
   status?: string;
   online?: boolean;
@@ -12,7 +17,8 @@ export type Payload = {
   players?: {
     max?: number;
     now?: number;
-    list?: any[];
+    list?: string[];
+    sample?: Player[];
   };
   plugins?: any[];
   last_online?: string;

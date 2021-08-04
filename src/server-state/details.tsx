@@ -25,7 +25,7 @@ const Details: React.FunctionComponent<DetailsProps> = ({ data }) => {
 
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <PlayerList data={data.players} />
+          <PlayerList data={data} />
         </Col>
       </Row>
 

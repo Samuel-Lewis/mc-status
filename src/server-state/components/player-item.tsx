@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { List, Avatar } from "antd";
+import { Player } from "../types";
 
-export const PlayerItem = (props: { name: string }) => {
-  const [uuid, setUuid] = useState("");
+type PlayerItemProps = {
+  player: Player;
+};
+
+export const PlayerItem: React.FunctionComponent<PlayerItemProps> = ({
+  player,
+}) => {
+  const { name, id } = player;
+
+  const [uuid, setUuid] = useState(id);
   useEffect(() => {
-    const { name } = props;
-    if (!name) {
+    if (!name || uuid) {
+      console.log("UUID supplied", { name, uuid });
       return;
     }
 
@@ -18,7 +27,7 @@ export const PlayerItem = (props: { name: string }) => {
       .catch((err) => {
         console.error(err);
       });
-  }, [props]);
+  }, [name, uuid]);
 
   return (
     <List.Item.Meta
@@ -31,11 +40,11 @@ export const PlayerItem = (props: { name: string }) => {
       }
       title={
         <a
-          href={`https://namemc.com/profile/${props.name}`}
+          href={`https://namemc.com/profile/${name}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {props.name}
+          {name}
         </a>
       }
     />

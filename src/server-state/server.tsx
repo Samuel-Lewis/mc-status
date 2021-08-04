@@ -95,6 +95,6 @@ export class ServerStatus extends React.Component<ServerProps, ServerState> {
       return <Error message={data ? data.error : "No data found??"} />;
     }
 
-    return <Details data={data} />;
+    return <Details data={data} key={JSON.stringify(data)} />;
   }
 }
