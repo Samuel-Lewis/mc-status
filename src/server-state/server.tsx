@@ -1,44 +1,20 @@
 import React from "react";
-import { Collapse, Row, Col, Divider } from "antd";
 
 import Loading from "./loading";
 import Error from "./error";
-
-import { ServerAvatar } from "./components/server-avatar";
-import { Online } from "./components/online";
-import { PlayerCount } from "./components/player-count";
-import { PlayerList } from "./components/player-list";
-
-export type Payload = {
-  status?: string;
-  online?: boolean;
-  error?: string;
-  motd?: string;
-  favicon?: string;
-  version?: string;
-  game_type?: string;
-  game_id?: any;
-  server_mod?: string;
-  map?: any;
-  players?: {
-    max?: number;
-    now?: number;
-    list?: any[];
-  };
-  plugins?: any[];
-  last_online?: string;
-  last_updated?: string;
-  duration?: number;
-};
+import Details from "./details";
+import { Payload } from "./types";
 
 export type ServerProps = {
   address: string;
 };
 
 export type ServerState = {
-  loading: boolean;
+  statusLoaded: boolean;
+  queryLoaded: boolean;
+  statusError?: Error;
+  queryError?: Error;
   data?: Payload;
-  error?: Error;
 };
 
 const isObject = (item: any) => {
@@ -69,76 +45,56 @@ const mergePositive = (lhs: any, rhs: any) => {
 export class ServerStatus extends React.Component<ServerProps, ServerState> {
   constructor(props: ServerProps) {
     super(props);
-    this.state = { loading: true };
+    this.state = { statusLoaded: false, queryLoaded: false };
   }
 
   componentDidMount() {
     fetch(`https://mcapi.us/server/status?ip=${this.props.address}`)
       .then((response) => response.json())
       .then((data) => {
-        const merged = mergePositive(this.state.data, data);
-        this.setState({ data: merged, loading: false });
+        const toMerge = data?.status === "success" ? data : {};
+        const merged = mergePositive(this.state.data, toMerge);
+        this.setState({ data: merged, statusLoaded: true });
       })
       .catch((error) => {
-        this.setState({ error, loading: false });
+        this.setState({ statusError: error, statusLoaded: true });
         console.error(error);
       });
 
     fetch(`https://mcapi.us/server/query?ip=${this.props.address}`)
       .then((response) => response.json())
       .then((data) => {
-        const merged = mergePositive(this.state.data, data);
-        this.setState({ data: merged });
+        const toMerge = data?.status === "success" ? data : {};
+        const merged = mergePositive(this.state.data, toMerge);
+        this.setState({ data: merged, queryLoaded: true });
       })
       .catch((error) => {
-        this.setState({ error, loading: false });
+        this.setState({ queryError: error });
         console.error(error);
       });
   }
 
   render() {
-    const { loading, data, error } = this.state;
-    if (error) {
-      return <Error message={error.message} />;
+    const {
+      statusError,
+      queryError,
+      data,
+      statusLoaded,
+      queryLoaded,
+    } = this.state;
+    if (!statusLoaded && !queryLoaded) {
+      return <Loading />;
     }
 
-    if (loading) {
-      return <Loading />;
+    if (!data || Object.keys(data).length === 0) {
+      const errorMsg = [statusError, queryError].filter((e) => e).join("/");
+      return <Error message={errorMsg} />;
     }
 
     if (!data || data.error || data.status === "error") {
       return <Error message={data ? data.error : "No data found??"} />;
     }
 
-    return (
-      <>
-        <Row gutter={[16, 16]}>
-          <Col flex="128px">
-            <ServerAvatar src={data.favicon} />
-          </Col>
-          <Col style={{ textAlign: "initial" }}>
-            <Online status={data.online} />
-            <PlayerCount data={data.players} />
-          </Col>
-        </Row>
-
-        <Row gutter={[16, 16]}>
-          <Col span={24}>
-            <PlayerList data={data.players} />
-          </Col>
-        </Row>
-
-        <Row gutter={[16, 16]}>
-          <Col span={24}>
-            <Divider />
-            <Collapse ghost style={{ textAlign: "initial" }}>
-              <Collapse.Panel header="Raw Data" key="1">
-                <pre>{JSON.stringify(data, null, 2)}</pre>
-              </Collapse.Panel>
-            </Collapse>
-          </Col>
-        </Row>
-      </>
-    );
+    return <Details data={data} />;
   }
 }
