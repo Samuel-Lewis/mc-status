@@ -1,11 +1,12 @@
 import React from "react";
 import { Collapse, Row, Col, Divider } from "antd";
-import { ServerAvatar } from "./components/server-avatar";
+import { Payload } from "./types";
+import { MotD } from "./components/motd";
 import { Online } from "./components/online";
 import { PlayerCount } from "./components/player-count";
 import { PlayerList } from "./components/player-list";
-import { MotD } from "./components/motd";
-import { Payload } from "./types";
+import { ServerAvatar } from "./components/server-avatar";
+import { Version } from "./components/version";
 
 type DetailsProps = {
   data: Payload;
@@ -16,11 +17,12 @@ const Details: React.FunctionComponent<DetailsProps> = ({ data }) => {
     <>
       <Row gutter={[16, 16]}>
         <Col flex="128px">
-          <ServerAvatar src={data.favicon} />
+          <ServerAvatar favicon={data.favicon} />
         </Col>
         <Col style={{ textAlign: "initial" }}>
-          <Online status={data.online} />
+          <Online online={data.online} />
           <PlayerCount players={data.players} />
+          <Version server={data.server} />
           <MotD motd={data.motd} />
         </Col>
       </Row>

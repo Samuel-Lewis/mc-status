@@ -3,7 +3,11 @@ import motdparser from "mcmotdparser";
 
 import { Payload } from "../types";
 
-export const MotD: React.FunctionComponent<Payload> = ({ motd }) => {
+type MotdProps = {
+  motd: Payload["motd"];
+};
+
+export const MotD: React.FunctionComponent<MotdProps> = ({ motd }) => {
   const [motdHtml, setMotdHtml] = useState("");
   useEffect(() => {
     motdparser.toHtml(motd, (err: any, res: any) => setMotdHtml(res));

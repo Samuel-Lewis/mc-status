@@ -4,24 +4,27 @@ export type Player = {
 };
 
 export type Payload = {
-  status?: string;
-  online?: boolean;
+  duration?: number;
   error?: string;
-  motd?: string;
   favicon?: string;
-  version?: string;
-  game_type?: string;
   game_id?: any;
-  server_mod?: string;
+  game_type?: string;
+  last_online?: string;
+  last_updated?: string;
   map?: any;
+  motd?: string;
+  online?: boolean;
   players?: {
+    list?: string[];
     max?: number;
     now?: number;
-    list?: string[];
     sample?: Player[];
   };
   plugins?: any[];
-  last_online?: string;
-  last_updated?: string;
-  duration?: number;
+  server_mod?: string;
+  server?: {
+    name?: string;
+    protocol?: number;
+  };
+  status?: string;
 };
