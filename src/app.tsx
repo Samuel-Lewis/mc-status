@@ -1,8 +1,15 @@
-import React from "react";
-import { ServerStatus } from "./server-state/server";
-import { Typography, Button, Layout, Form, Input, Divider } from "antd";
 import "antd/dist/antd.css";
-import "./App.css";
+import "./App.less";
+import {
+    Button,
+    Divider,
+    Form,
+    Input,
+    Layout
+} from "antd";
+import React from "react";
+import { ServerList } from "./server-list";
+import { ServerStatus } from "./server-state";
 
 const { Header, Footer, Content } = Layout;
 
@@ -20,7 +27,14 @@ function App() {
   return (
     <Layout className="layout">
       <Header className="layout-header">
-        <Typography.Title>Minecraft Server Status</Typography.Title>
+        <h2 className="layout-header">
+          <img
+            className="logo"
+            src={`${process.env.PUBLIC_URL}/logo512.png`}
+            alt="computer logo"
+          ></img>
+          Minecraft Server Status
+        </h2>
       </Header>
       <Content className="layout-content">
         <Form
@@ -41,6 +55,7 @@ function App() {
           </Form.Item>
         </Form>
         <Divider />
+        {!paramIp && <ServerList />}
         {paramIp && <ServerStatus key={paramIp} address={paramIp} />}
       </Content>
       <Footer className="layout-footer">
