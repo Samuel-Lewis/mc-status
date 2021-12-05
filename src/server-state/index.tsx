@@ -1,8 +1,8 @@
 import React from "react";
-
-import Loading from "./loading";
-import Error from "./error";
+import { addSearch } from "../server-list/local-servers";
 import Details from "./details";
+import Error from "./error";
+import Loading from "./loading";
 import { Payload } from "./types";
 
 export type ServerProps = {
@@ -75,13 +75,8 @@ export class ServerStatus extends React.Component<ServerProps, ServerState> {
   }
 
   render() {
-    const {
-      statusError,
-      queryError,
-      data,
-      statusLoaded,
-      queryLoaded,
-    } = this.state;
+    const { statusError, queryError, data, statusLoaded, queryLoaded } =
+      this.state;
 
     if (!statusLoaded && !queryLoaded) {
       return <Loading />;
@@ -101,6 +96,12 @@ export class ServerStatus extends React.Component<ServerProps, ServerState> {
         return <Error message={data ? data.error : "No data found??"} />;
       }
     }
+
+    addSearch({
+      name: data.server?.name || "Unnamed server",
+      url: this.props.address,
+    });
+
     return <Details data={data} key={JSON.stringify(data)} />;
   }
 }

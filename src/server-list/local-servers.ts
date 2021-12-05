@@ -29,6 +29,21 @@ export const addSearch = async ({ name, url }: SearchEntry) => {
   return await searchStore.setItem(url, newEntry);
 };
 
+export const removeSearch = async (url: string) => {
+  return await searchStore.removeItem(url);
+};
+
+const sortSearches = (searches: SearchEntry[]): SearchEntry[] => {
+  return searches
+    .sort((a, b) => {
+      if (a.totalHits === b.totalHits) {
+        return 0;
+      }
+      return (a.totalHits || 0) < (b.totalHits || 0) ? 1 : -1;
+    })
+    .slice(0, 4);
+};
+
 export const getLocalServers = async (): Promise<SearchEntry[]> => {
   const keys = await searchStore.keys();
   const entries = await Promise.all(
@@ -37,5 +52,5 @@ export const getLocalServers = async (): Promise<SearchEntry[]> => {
       return history as SearchEntry;
     })
   );
-  return entries;
+  return sortSearches(entries);
 };
