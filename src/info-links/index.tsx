@@ -74,11 +74,14 @@ const FAQ = () => (
       unintentional being exposed or that you have measures to protect your
       server if needed.
     </P>
-    <Title level={4}>Why do some player lists look weird or empty?</Title>
+    <Title level={4}>
+      Why do some player lists look weird, incomplete, or empty?
+    </Title>
     <P>
       As above, servers can show what they like. Some servers take the
       opportunity to show ads, extra server information, a subset of players, or
-      maybe, no players at all.
+      maybe, no players at all. As of Minecraft 1.18, players are able to
+      opt-out of server queries, and hence will not be shown in the player list.
     </P>
     <Title level={4}>How do I donate or contribute?</Title>
     <P>

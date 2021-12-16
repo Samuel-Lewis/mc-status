@@ -9,6 +9,7 @@ import {
     Typography
 } from "antd";
 import React from "react";
+import ReactGA from "react-ga4";
 import { GlobalOutlined } from "@ant-design/icons";
 import { InfoLinks } from "./info-links";
 import { ServerList } from "./server-list";
@@ -16,6 +17,12 @@ import { ServerStatus } from "./server-state";
 
 const { Header, Footer, Content } = Layout;
 const { Title } = Typography;
+
+try {
+  ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
+} catch (err) {
+  console.error("GA initialization failed", err);
+}
 
 function App() {
   const params = new URLSearchParams(window.location.search);
@@ -29,20 +36,18 @@ function App() {
   };
 
   return (
-    <Layout className="layout">
-      <Header className="layout-header">
+    <Layout className="app">
+      <Header className="header">
         <a href={`${process.env.PUBLIC_URL}`}>
-          <h2 className="layout-header">
-            <img
-              className="logo"
-              src={`${process.env.PUBLIC_URL}/logo512.png`}
-              alt="computer logo"
-            ></img>
-            Minecraft Server Status
-          </h2>
+          <img
+            className="logo"
+            src={`${process.env.PUBLIC_URL}/logo512.png`}
+            alt=""
+          ></img>
+          <h2>Minecraft Server Status</h2>
         </a>
       </Header>
-      <Content className="layout-content">
+      <Content className="content">
         <Form
           style={{ textAlign: "center" }}
           name="basic"
@@ -70,8 +75,8 @@ function App() {
         {!paramIp && <ServerList />}
         {paramIp && <ServerStatus key={paramIp} address={paramIp} />}
       </Content>
-      <Footer className="layout-footer">
-        Created by <a href="https://github.com/Samuel-Lewis">Samuel Lewis</a>
+      <Footer className="footer">
+        Created by <a href="https://samuel-lewis.com">Samuel Lewis</a>
       </Footer>
     </Layout>
   );

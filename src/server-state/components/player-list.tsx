@@ -1,9 +1,12 @@
+import {
+    Divider,
+    List,
+    Popover
+} from "antd";
 import React from "react";
-import { Divider, List, Popover } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
-
-import { PlayerItem } from "./player-item";
 import { Payload } from "../types";
+import { PlayerItem } from "./player-item";
 
 type PlayerListProps = {
   players: Payload["players"];
@@ -19,7 +22,6 @@ export const PlayerList: React.FunctionComponent<PlayerListProps> = ({
   players?.list?.forEach((p) => playerMap.set(p, undefined));
   players?.sample?.forEach((p) => playerMap.set(p.name!, p.id!));
 
-  console.log("PLAYERMAP", playerMap);
   if (playerMap.size === 0) {
     return null;
   }

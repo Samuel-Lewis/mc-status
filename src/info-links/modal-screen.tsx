@@ -3,6 +3,7 @@ import {
     Modal
 } from "antd";
 import React, { useState } from "react";
+import ReactGA from "react-ga4";
 
 type ModalScreenProps = {
   title: string;
@@ -15,10 +16,20 @@ export const ModalScreen: React.FunctionComponent<ModalScreenProps> = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
+    ReactGA.event({
+      category: "modal",
+      action: "open",
+      label: title.toLowerCase(), // optional
+    });
     setIsModalVisible(true);
   };
 
   const closeModal = () => {
+    ReactGA.event({
+      category: "modal",
+      action: "close",
+      label: title.toLowerCase(), // optional
+    });
     setIsModalVisible(false);
   };
 
