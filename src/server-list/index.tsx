@@ -1,18 +1,17 @@
-import {
-    Col,
-    Row
-} from "antd";
 import React, {
     useCallback,
     useEffect,
     useState
 } from "react";
+import { Grid } from "@mantine/core";
 import { DetailedList } from "./detailed-list";
 import {
     getLocalServers,
     removeSearch
 } from "./local-servers";
 import { SearchEntry } from "./types";
+
+const { Col } = Grid;
 
 const popularServers = [
   { name: "Hypixel", url: "mc.hypixel.net" },
@@ -37,17 +36,17 @@ export const ServerList = () => {
   }, [setLocalServers]);
 
   return (
-    <Row gutter={16}>
-      <Col span={12} flex="auto">
+    <Grid grow justify="center">
+      <Col sm={6} xs={12}>
         <DetailedList title="Popular servers" servers={popularServers} />
       </Col>
-      <Col span={12} flex="auto">
+      <Col sm={6} xs={12}>
         <DetailedList
           title="Recent servers"
           servers={localServers}
           onDelete={onDelete}
         />
       </Col>
-    </Row>
+    </Grid>
   );
 };

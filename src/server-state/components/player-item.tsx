@@ -1,20 +1,20 @@
-import {
-    Avatar,
-    List
-} from "antd";
 import React, {
     useEffect,
     useState
 } from "react";
+import {
+    Avatar,
+    Group,
+    Skeleton,
+    Text as T
+} from "@mantine/core";
 import { Player } from "../types";
 
 type PlayerItemProps = {
   player: Player;
 };
 
-export const PlayerItem: React.FunctionComponent<PlayerItemProps> = ({
-  player,
-}) => {
+export const PlayerItem: React.FC<PlayerItemProps> = ({ player }) => {
   const { name, id } = player;
 
   const [uuid, setUuid] = useState(id);
@@ -31,26 +31,24 @@ export const PlayerItem: React.FunctionComponent<PlayerItemProps> = ({
       .catch((err) => {
         console.error(err);
       });
-  }, [name, uuid]);
+  }, [name, uuid, id]);
 
   return (
-    <List.Item.Meta
-      avatar={
-        <Avatar
-          shape="square"
-          size="large"
-          src={`https://crafatar.com/renders/head/${uuid}?overlay`}
-        />
-      }
-      title={
-        <a
-          href={`https://namemc.com/profile/${name}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {name}
-        </a>
-      }
-    />
+    <Group direction="row" sx={{ height: "60px" }}>
+      {uuid ? (
+        <Avatar src={`https://crafatar.com/renders/head/${uuid}?overlay`} />
+      ) : (
+        <Skeleton height={38} width={38} />
+      )}
+      <T
+        lineClamp={1}
+        component="a"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={`https://namemc.com/profile/${name}`}
+      >
+        {name}
+      </T>
+    </Group>
   );
 };

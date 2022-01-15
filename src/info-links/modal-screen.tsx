@@ -1,15 +1,15 @@
+import React, { useState } from "react";
+import ReactGA from "react-ga4";
 import {
     Button,
     Modal
-} from "antd";
-import React, { useState } from "react";
-import ReactGA from "react-ga4";
+} from "@mantine/core";
 
 type ModalScreenProps = {
   title: string;
 };
 
-export const ModalScreen: React.FunctionComponent<ModalScreenProps> = ({
+export const ModalScreen: React.FC<ModalScreenProps> = ({
   title,
   children,
 }) => {
@@ -19,7 +19,7 @@ export const ModalScreen: React.FunctionComponent<ModalScreenProps> = ({
     ReactGA.event({
       category: "modal",
       action: "open",
-      label: title.toLowerCase(), // optional
+      label: title.toLowerCase(),
     });
     setIsModalVisible(true);
   };
@@ -28,26 +28,21 @@ export const ModalScreen: React.FunctionComponent<ModalScreenProps> = ({
     ReactGA.event({
       category: "modal",
       action: "close",
-      label: title.toLowerCase(), // optional
+      label: title.toLowerCase(),
     });
     setIsModalVisible(false);
   };
 
   return (
     <>
-      <Button type="link" onClick={showModal}>
+      <Button onClick={showModal} variant="subtle">
         {title}
       </Button>
       <Modal
         title={title}
-        visible={isModalVisible}
-        onOk={closeModal}
-        onCancel={closeModal}
-        footer={
-          <Button key="Ok" type="primary" onClick={closeModal}>
-            Ok
-          </Button>
-        }
+        opened={isModalVisible}
+        onClose={closeModal}
+        size="lg"
       >
         {children}
       </Modal>

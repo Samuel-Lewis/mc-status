@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
 import motdparser from "mcmotdparser";
-
+import React, {
+    useEffect,
+    useState
+} from "react";
 import { Payload } from "../types";
 
 type MotdProps = {
   motd: Payload["motd"];
 };
 
-export const MotD: React.FunctionComponent<MotdProps> = ({ motd }) => {
+export const MotD: React.FC<MotdProps> = ({ motd }) => {
   const [motdHtml, setMotdHtml] = useState("");
   useEffect(() => {
-    motdparser.toHtml(motd, (err: any, res: any) => setMotdHtml(res));
+    motdparser.toHtml(motd, (_: any, res: any) => setMotdHtml(res));
   }, [motd]);
 
   if (!motd?.trim()) {

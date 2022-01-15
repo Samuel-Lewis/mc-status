@@ -1,11 +1,15 @@
 import React from "react";
-import { Spin } from "antd";
+import {
+    Group,
+    Loader,
+    Title
+} from "@mantine/core";
 
 export default function Loading() {
   return (
-    <div style={{ textAlign: "center" }}>
-      <h2>Loading</h2>
-      <Spin size="large" />
-    </div>
+    <Group direction="column" position="center">
+      <Title order={2}>Loading</Title>
+      <Loader size="lg" />
+    </Group>
   );
 }

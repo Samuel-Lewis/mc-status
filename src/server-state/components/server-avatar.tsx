@@ -1,6 +1,5 @@
 import React from "react";
-import { Avatar } from "antd";
-
+import { Avatar } from "@mantine/core";
 import { Payload } from "../types";
 
 type ServerAvatarProps = {
@@ -9,8 +8,6 @@ type ServerAvatarProps = {
 
 const defaultAvatarSrc = `${process.env.PUBLIC_URL}/grassblock.jpg`;
 
-export const ServerAvatar: React.FunctionComponent<ServerAvatarProps> = ({
-  favicon,
-}) => {
-  return <Avatar src={favicon ?? defaultAvatarSrc} size={128} shape="square" />;
+export const ServerAvatar: React.FC<ServerAvatarProps> = ({ favicon }) => {
+  return <Avatar src={favicon ?? defaultAvatarSrc} size={128} />;
 };

@@ -1,10 +1,8 @@
+import React from "react";
 import {
     Divider,
-    List,
-    Popover
-} from "antd";
-import React from "react";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+    SimpleGrid
+} from "@mantine/core";
 import { Payload } from "../types";
 import { PlayerItem } from "./player-item";
 
@@ -12,9 +10,7 @@ type PlayerListProps = {
   players: Payload["players"];
 };
 
-export const PlayerList: React.FunctionComponent<PlayerListProps> = ({
-  players,
-}) => {
+export const PlayerList: React.FC<PlayerListProps> = ({ players }) => {
   if (!players) {
     return null;
   }
@@ -26,50 +22,25 @@ export const PlayerList: React.FunctionComponent<PlayerListProps> = ({
     return null;
   }
 
-  const playerList = Array.from(playerMap).sort((a, b) =>
-    a[0].localeCompare(b[0])
-  );
-
-  const InfoContent = (
-    <div style={{ width: "300px" }}>
-      <p>
-        Servers are able to control a "sample" of players online, and may use
-        this for extra metadata or advertisment.
-      </p>
-      <p>Occasionally, servers may also report nicknames.</p>
-    </div>
-  );
-  const InfoPopover = (
-    <Popover
-      content={InfoContent}
-      title={"Why are there weird names sometimes?"}
-      placement="topLeft"
-    >
-      <QuestionCircleOutlined />
-    </Popover>
-  );
+  const playerList = Array.from(playerMap)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([name, id]) => {
+      return <PlayerItem key={`${name}`} player={{ name, id }} />;
+    });
 
   return (
     <>
-      <Divider orientation="left">Player List {InfoPopover}</Divider>
-      <List
-        grid={{
-          gutter: 16,
-          xs: 1,
-          sm: 2,
-          md: 3,
-          lg: 4,
-          xl: 4,
-          xxl: 5,
-        }}
-        dataSource={playerList}
-        size="large"
-        renderItem={([name, id]) => (
-          <List.Item>
-            <PlayerItem player={{ name, id }} />
-          </List.Item>
-        )}
-      />
+      <Divider my="lg" label="Player List" labelProps={{ size: "md" }} />
+
+      <SimpleGrid
+        cols={3}
+        breakpoints={[
+          { maxWidth: "sm", cols: 2 },
+          { maxWidth: "xs", cols: 1 },
+        ]}
+      >
+        {playerList}
+      </SimpleGrid>
     </>
   );
 };

@@ -1,18 +1,22 @@
 import React from "react";
-import { Tag } from "antd";
-
+import {
+    Badge,
+    Group
+} from "@mantine/core";
 import { Payload } from "../types";
 
 type VersionProps = {
   server: Payload["server"];
 };
 
-export const Version: React.FunctionComponent<VersionProps> = ({ server }) => {
+export const Version: React.FC<VersionProps> = ({ server }) => {
   if (!server || !server?.name) {
     return null;
   }
 
-  const tags = server.name.split(/[\s-,]+/).map((t) => <Tag key={t}>{t}</Tag>);
+  const tags = server.name
+    .split(/[\s-,]+/)
+    .map((t) => <Badge key={t}>{t}</Badge>);
 
-  return <div style={{ maxWidth: "400px" }}>{tags}</div>;
+  return <Group spacing="xs">{tags}</Group>;
 };

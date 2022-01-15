@@ -1,24 +1,21 @@
 import React from "react";
-import { Typography } from "antd";
-import { TeamOutlined } from "@ant-design/icons";
-
+import { AiOutlineTeam } from "react-icons/ai";
+import { Text as T } from "@mantine/core";
 import { Payload } from "../types";
 
 type PlayerCountProps = {
   players: Payload["players"];
 };
 
-export const PlayerCount: React.FunctionComponent<PlayerCountProps> = ({
-  players,
-}) => {
+export const PlayerCount: React.FC<PlayerCountProps> = ({ players }) => {
   if (!players) {
     return null;
   }
 
   const { now, max } = players;
   return (
-    <Typography.Text strong>
-      <TeamOutlined /> {now} / {max} player{now === 1 ? "" : "s"} online
-    </Typography.Text>
+    <T>
+      <AiOutlineTeam /> {now} / {max} player{now === 1 ? "" : "s"} online
+    </T>
   );
 };

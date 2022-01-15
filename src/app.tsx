@@ -1,22 +1,26 @@
-import "antd/dist/antd.css";
-import "./App.less";
-import {
-    Button,
-    Divider,
-    Form,
-    Input,
-    Layout,
-    Typography
-} from "antd";
+import "./App.css";
 import React from "react";
 import ReactGA from "react-ga4";
-import { GlobalOutlined } from "@ant-design/icons";
+import {
+    AppShell,
+    Button,
+    Center,
+    Divider,
+    Group,
+    Header,
+    Image,
+    MantineProvider,
+    Paper,
+    Space,
+    Text as T,
+    TextInput,
+    Title,
+    TypographyStylesProvider
+} from "@mantine/core";
+import { useForm } from "@mantine/hooks";
 import { InfoLinks } from "./info-links";
 import { ServerList } from "./server-list";
 import { ServerStatus } from "./server-state";
-
-const { Header, Footer, Content } = Layout;
-const { Title } = Typography;
 
 try {
   ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
@@ -28,7 +32,13 @@ function App() {
   const params = new URLSearchParams(window.location.search);
   const paramIp = params.get("ip");
 
-  const onFinish = (values: { ip?: string }) => {
+  const form = useForm<{ ip: string }>({
+    initialValues: {
+      ip: paramIp ?? "",
+    },
+  });
+
+  const submitCallback = (values: typeof form["values"]) => {
     if (values.ip) {
       params.set("ip", values.ip);
       window.location.search = params.toString();
@@ -36,49 +46,79 @@ function App() {
   };
 
   return (
-    <Layout className="app">
-      <Header className="header">
-        <a href={`${process.env.PUBLIC_URL}`}>
-          <img
-            className="logo"
-            src={`${process.env.PUBLIC_URL}/logo512.png`}
-            alt=""
-          ></img>
-          <h2>Minecraft Server Status</h2>
-        </a>
-      </Header>
-      <Content className="content">
-        <Form
-          style={{ textAlign: "center" }}
-          name="basic"
-          layout="vertical"
-          size="large"
-          initialValues={{ ip: paramIp }}
-          onFinish={onFinish}
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{ colorScheme: "light" }}
+    >
+      <TypographyStylesProvider>
+        <AppShell
+          styles={(theme) => ({
+            root: {
+              backgroundImage: `url(${process.env.PUBLIC_URL}/assets/bright-squares.png)`,
+              height: "100%",
+              minHeight: "100vh",
+            },
+          })}
+          header={
+            <MantineProvider theme={{ colorScheme: "dark" }}>
+              <Header height={64}>
+                <a href={process.env.PUBLIC_URL}>
+                  <Group>
+                    <Image
+                      sx={{ padding: "8px", width: "64px", height: "64px" }}
+                      src={`${process.env.PUBLIC_URL}/logo512.png`}
+                    />
+                    <Title order={2} style={{ margin: 0 }}>
+                      Minecraft Server Status
+                    </Title>
+                  </Group>
+                </a>
+              </Header>
+            </MantineProvider>
+          }
         >
-          <Title level={3}>Quickly check your Minecraft server status!</Title>
-          <Form.Item name="ip">
-            <Input prefix={<GlobalOutlined />} placeholder="Server IP" />
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{ maxWidth: "300px", width: "100%" }}
-            >
-              Go!
-            </Button>
-          </Form.Item>
-          <InfoLinks />
-        </Form>
-        <Divider />
-        {!paramIp && <ServerList />}
-        {paramIp && <ServerStatus key={paramIp} address={paramIp} />}
-      </Content>
-      <Footer className="footer">
-        Created by <a href="https://samuel-lewis.com">Samuel Lewis</a>
-      </Footer>
-    </Layout>
+          <Paper padding="xl">
+            <Group position="center" direction="column" grow>
+              <form onSubmit={form.onSubmit(submitCallback)}>
+                <TextInput
+                  required
+                  size="lg"
+                  label="Server IP"
+                  placeholder="mc.hypixel.net"
+                  {...form.getInputProps("ip")}
+                />
+                <Space h="xl" />
+                <Center>
+                  <Button fullWidth type="submit" style={{ maxWidth: 300 }}>
+                    Go!
+                  </Button>
+                </Center>
+              </form>
+            </Group>
+            <InfoLinks />
+            <Divider />
+            {!paramIp && <ServerList />}
+            {paramIp && <ServerStatus key={paramIp} address={paramIp} />}
+          </Paper>
+
+          <Center style={{ height: "60px" }}>
+            <span>
+              Created by{" "}
+              <T
+                variant="link"
+                component="a"
+                href="https://samuel-lewis.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Samuel Lewis
+              </T>
+            </span>
+          </Center>
+        </AppShell>
+      </TypographyStylesProvider>
+    </MantineProvider>
   );
 }
 

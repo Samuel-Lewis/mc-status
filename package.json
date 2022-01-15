@@ -4,30 +4,26 @@
   "private": true,
   "homepage": "https://samuel-lewis.com/mc-status",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "craco start",
-    "build": "craco build"
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.7.0",
-    "antd": "^4.17.2",
+    "@mantine/core": "^3.6.0",
+    "@mantine/hooks": "^3.6.0",
     "localforage": "^1.10.0",
     "mcmotdparser": "^1.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-ga4": "^1.4.1"
+    "react-ga4": "^1.4.1",
+    "react-icons": "^4.3.1"
   },
   "devDependencies": {
-    "@craco/craco": "^6.4.2",
     "@types/node": "^16.11.11",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
-    "craco-less": "^1.20.0",
-    "prettier": "^2.5.0",
     "react-scripts": "^4.0.3",
     "typescript": "^4.5.2"
   },
