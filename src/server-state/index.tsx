@@ -1,7 +1,7 @@
 import React from "react";
 import { addSearch } from "../server-list/local-servers";
 import Details from "./details";
-import Error from "./error";
+import { Error } from "./error";
 import Loading from "./loading";
 import { Payload } from "./types";
 

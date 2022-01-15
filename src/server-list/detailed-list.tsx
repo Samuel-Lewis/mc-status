@@ -1,15 +1,14 @@
-import {
-    Button,
-    List,
-    Tooltip,
-    Typography
-} from "antd";
 import React from "react";
-import { CloseOutlined } from "@ant-design/icons";
+import {
+    Box,
+    Card,
+    CloseButton,
+    Group,
+    Text as T,
+    Title,
+    Tooltip
+} from "@mantine/core";
 import { SearchEntry } from "./types";
-
-const { Item } = List;
-const { Title } = Typography;
 
 export type DetailedListProps = {
   servers: SearchEntry[];
@@ -17,7 +16,7 @@ export type DetailedListProps = {
   onDelete?: (server: SearchEntry) => void;
 };
 
-export const DetailedList: React.FunctionComponent<DetailedListProps> = ({
+export const DetailedList: React.FC<DetailedListProps> = ({
   servers,
   title,
   onDelete,
@@ -32,34 +31,37 @@ export const DetailedList: React.FunctionComponent<DetailedListProps> = ({
     return fullUrl.href;
   };
 
-  const deleteButton = (item: SearchEntry) =>
-    onDelete ? (
-      <Tooltip title="Remove server">
-        <Button
-          shape="circle"
-          type="text"
-          icon={<CloseOutlined style={{ color: "rgba(0, 0, 0, 0.45)" }} />}
-          onClick={() => onDelete(item)}
-        />
-      </Tooltip>
-    ) : null;
+  const items = servers.map((server) => {
+    const del = (
+      <Box style={{ height: "28px" }}>
+        {onDelete ? (
+          <Tooltip label="Remove server">
+            <CloseButton onClick={() => onDelete(server)} />
+          </Tooltip>
+        ) : null}
+      </Box>
+    );
+
+    return (
+      <Card
+        key={server.url}
+        padding="lg"
+        component="a"
+        href={toParam(server.url)}
+      >
+        <Group position="apart">
+          <T weight={500}>{server.url}</T>
+          {del}
+        </Group>
+        <T size="sm">{server.name}</T>
+      </Card>
+    );
+  });
 
   return (
     <>
-      <Title level={3}>{title}</Title>
-      <List
-        itemLayout="horizontal"
-        dataSource={servers}
-        size="large"
-        renderItem={(item) => (
-          <Item actions={[deleteButton(item)]}>
-            <Item.Meta
-              title={<a href={toParam(item.url)}>{item.url}</a>}
-              description={item.name}
-            />
-          </Item>
-        )}
-      />
+      <Title order={3}>{title}</Title>
+      {items}
     </>
   );
 };

@@ -1,48 +1,46 @@
 import React from "react";
-import { Collapse, Row, Col, Divider } from "antd";
-import { Payload } from "./types";
+import {
+    Accordion,
+    Code,
+    Divider,
+    Group
+} from "@mantine/core";
 import { MotD } from "./components/motd";
 import { Online } from "./components/online";
 import { PlayerCount } from "./components/player-count";
 import { PlayerList } from "./components/player-list";
 import { ServerAvatar } from "./components/server-avatar";
 import { Version } from "./components/version";
+import { Payload } from "./types";
+
+const { Item } = Accordion;
 
 type DetailsProps = {
   data: Payload;
 };
 
-const Details: React.FunctionComponent<DetailsProps> = ({ data }) => {
+const Details: React.FC<DetailsProps> = ({ data }) => {
   return (
     <>
-      <Row gutter={[16, 16]}>
-        <Col flex="128px">
-          <ServerAvatar favicon={data.favicon} />
-        </Col>
-        <Col style={{ textAlign: "initial" }}>
+      <Group>
+        <ServerAvatar favicon={data.favicon} />
+        <div>
           <Online online={data.online} />
           <PlayerCount players={data.players} />
           <Version server={data.server} />
           <MotD motd={data.motd} />
-        </Col>
-      </Row>
+        </div>
+      </Group>
 
-      <Row gutter={[16, 16]}>
-        <Col span={24}>
-          <PlayerList players={data.players} />
-        </Col>
-      </Row>
+      <PlayerList players={data.players} />
 
-      <Row gutter={[16, 16]}>
-        <Col span={24}>
-          <Divider />
-          <Collapse ghost style={{ textAlign: "initial" }}>
-            <Collapse.Panel header="Raw Data" key="1">
-              <pre>{JSON.stringify(data, null, 2)}</pre>
-            </Collapse.Panel>
-          </Collapse>
-        </Col>
-      </Row>
+      <Divider />
+
+      <Accordion offsetIcon={false}>
+        <Item label="Raw data">
+          <Code block>{JSON.stringify(data, null, 2)}</Code>
+        </Item>
+      </Accordion>
     </>
   );
 };

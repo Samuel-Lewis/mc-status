@@ -1,16 +1,22 @@
 import React from "react";
-import { Result } from "antd";
+import {
+    Center,
+    Code,
+    Group,
+    Text as T,
+    Title
+} from "@mantine/core";
 
 export type ErrorProps = {
   message?: string;
 };
 
-export default function Error(props: ErrorProps) {
-  return (
-    <Result
-      status="error"
-      title="Failed to fetch server details"
-      subTitle={props.message}
-    />
-  );
-}
+export const Error: React.FC<ErrorProps> = ({ message }) => (
+  <Center>
+    <Group position="center" direction="column" grow>
+      <Title order={2}>Failed to fetch server details</Title>
+      <T>Please check the server address and try again.</T>
+      {message && <Code block>{message}</Code>}
+    </Group>
+  </Center>
+);
