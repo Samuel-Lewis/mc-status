@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar } from "@mantine/core";
+import { Image } from "@mantine/core";
 import { Payload } from "../types";
 
 type ServerAvatarProps = {
@@ -9,5 +9,13 @@ type ServerAvatarProps = {
 const defaultAvatarSrc = `${process.env.PUBLIC_URL}/grassblock.jpg`;
 
 export const ServerAvatar: React.FC<ServerAvatarProps> = ({ favicon }) => {
-  return <Avatar src={favicon ?? defaultAvatarSrc} size={128} />;
+  return (
+    <Image
+      src={favicon ?? defaultAvatarSrc}
+      style={{ margin: "auto" }}
+      alt=""
+      radius="md"
+      width={128}
+    />
+  );
 };

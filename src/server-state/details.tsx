@@ -1,9 +1,10 @@
 import React from "react";
 import {
     Accordion,
+    Center,
     Code,
     Divider,
-    Group
+    Grid
 } from "@mantine/core";
 import { MotD } from "./components/motd";
 import { Online } from "./components/online";
@@ -14,6 +15,7 @@ import { Version } from "./components/version";
 import { Payload } from "./types";
 
 const { Item } = Accordion;
+const { Col } = Grid;
 
 type DetailsProps = {
   data: Payload;
@@ -22,15 +24,19 @@ type DetailsProps = {
 const Details: React.FC<DetailsProps> = ({ data }) => {
   return (
     <>
-      <Group>
-        <ServerAvatar favicon={data.favicon} />
-        <div>
+      <Grid>
+        <Col xs={12} sm={4}>
+          <Center>
+            <ServerAvatar favicon={data.favicon} />
+          </Center>
+        </Col>
+        <Col xs={12} sm={8}>
           <Online online={data.online} />
           <PlayerCount players={data.players} />
           <Version server={data.server} />
           <MotD motd={data.motd} />
-        </div>
-      </Group>
+        </Col>
+      </Grid>
 
       <PlayerList players={data.players} />
 

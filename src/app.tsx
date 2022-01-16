@@ -13,14 +13,13 @@ import {
     Paper,
     Space,
     Text as T,
-    TextInput,
-    Title,
-    TypographyStylesProvider
+    TextInput
 } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
 import { InfoLinks } from "./info-links";
 import { ServerList } from "./server-list";
 import { ServerStatus } from "./server-state";
+import { WithTheme } from "./theme";
 
 try {
   ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
@@ -46,14 +45,11 @@ function App() {
   };
 
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{ colorScheme: "light" }}
-    >
-      <TypographyStylesProvider>
+    <WithTheme
+      render={(_, ThemeToggle) => (
         <AppShell
-          styles={(theme) => ({
+          padding="md"
+          styles={(_) => ({
             root: {
               backgroundImage: `url(${process.env.PUBLIC_URL}/assets/bright-squares.png)`,
               height: "100%",
@@ -62,18 +58,31 @@ function App() {
           })}
           header={
             <MantineProvider theme={{ colorScheme: "dark" }}>
-              <Header height={64}>
-                <a href={process.env.PUBLIC_URL}>
-                  <Group>
+              <Header height={60} padding="xs">
+                <Group position="apart">
+                  {/* Navigation Items */}
+
+                  <Group spacing="xs">
+                    {/* Logo */}
                     <Image
-                      sx={{ padding: "8px", width: "64px", height: "64px" }}
+                      sx={{ height: "38px", width: "38px" }}
                       src={`${process.env.PUBLIC_URL}/logo512.png`}
                     />
-                    <Title order={2} style={{ margin: 0 }}>
+                    <T
+                      component="a"
+                      href={process.env.PUBLIC_URL}
+                      variant="gradient"
+                      size="xl"
+                      weight={700}
+                      gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+                    >
                       Minecraft Server Status
-                    </Title>
+                    </T>
                   </Group>
-                </a>
+
+                  {/* Theme toggle */}
+                  {ThemeToggle}
+                </Group>
               </Header>
             </MantineProvider>
           }
@@ -103,22 +112,22 @@ function App() {
           </Paper>
 
           <Center style={{ height: "60px" }}>
-            <span>
+            <T>
               Created by{" "}
               <T
-                variant="link"
                 component="a"
-                href="https://samuel-lewis.com"
+                variant="link"
                 target="_blank"
                 rel="noopener noreferrer"
+                href="https://samuel-lewis.com"
               >
                 Samuel Lewis
               </T>
-            </span>
+            </T>
           </Center>
         </AppShell>
-      </TypographyStylesProvider>
-    </MantineProvider>
+      )}
+    />
   );
 }
 
