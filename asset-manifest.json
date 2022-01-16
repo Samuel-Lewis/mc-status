@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/mc-status/static/css/main.fcc5cf0e.chunk.css",
-    "main.js": "/mc-status/static/js/main.bd2de630.chunk.js",
-    "main.js.map": "/mc-status/static/js/main.bd2de630.chunk.js.map",
+    "main.css": "/mc-status/static/css/main.c6b64d8f.chunk.css",
+    "main.js": "/mc-status/static/js/main.214c66c2.chunk.js",
+    "main.js.map": "/mc-status/static/js/main.214c66c2.chunk.js.map",
     "runtime-main.js": "/mc-status/static/js/runtime-main.50b9f172.js",
     "runtime-main.js.map": "/mc-status/static/js/runtime-main.50b9f172.js.map",
     "static/js/2.f536fb8f.chunk.js": "/mc-status/static/js/2.f536fb8f.chunk.js",
     "static/js/2.f536fb8f.chunk.js.map": "/mc-status/static/js/2.f536fb8f.chunk.js.map",
     "index.html": "/mc-status/index.html",
-    "static/css/main.fcc5cf0e.chunk.css.map": "/mc-status/static/css/main.fcc5cf0e.chunk.css.map",
-    "static/js/2.f536fb8f.chunk.js.LICENSE.txt": "/mc-status/static/js/2.f536fb8f.chunk.js.LICENSE.txt"
+    "static/css/main.c6b64d8f.chunk.css.map": "/mc-status/static/css/main.c6b64d8f.chunk.css.map",
+    "static/js/2.f536fb8f.chunk.js.LICENSE.txt": "/mc-status/static/js/2.f536fb8f.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/mc-status/static/media/MinecraftRegular.82ba0891.otf"
   },
   "entrypoints": [
     "static/js/runtime-main.50b9f172.js",
     "static/js/2.f536fb8f.chunk.js",
-    "static/css/main.fcc5cf0e.chunk.css",
-    "static/js/main.bd2de630.chunk.js"
+    "static/css/main.c6b64d8f.chunk.css",
+    "static/js/main.214c66c2.chunk.js"
   ]
 }
