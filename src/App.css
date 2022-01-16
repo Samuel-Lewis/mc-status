@@ -1,5 +1,3 @@
-@import url("http://fonts.cdnfonts.com/css/minecraft-2");
-
 html,
 body {
   padding: 0;
@@ -8,11 +6,17 @@ body {
   width: 100%;
 }
 
+@font-face {
+  font-family: MinecraftRegular;
+  src: local("MinecraftRegular"),
+    url(./assets/MinecraftRegular.otf) format("opentype");
+}
+
 .mc {
   padding: 1em;
   margin: 1em;
   margin-left: 0;
-  font-family: Minecraft;
+  font-family: MinecraftRegular;
   background-color: #362400;
   border-radius: 10px;
 }

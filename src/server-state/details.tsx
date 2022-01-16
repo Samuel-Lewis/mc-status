@@ -1,11 +1,5 @@
 import React from "react";
-import {
-    Accordion,
-    Center,
-    Code,
-    Divider,
-    Grid
-} from "@mantine/core";
+import { Accordion, Center, Code, Divider, Grid } from "@mantine/core";
 import { MotD } from "./components/motd";
 import { Online } from "./components/online";
 import { PlayerCount } from "./components/player-count";
@@ -24,7 +18,7 @@ type DetailsProps = {
 const Details: React.FC<DetailsProps> = ({ data }) => {
   return (
     <>
-      <Grid>
+      <Grid align="center">
         <Col xs={12} sm={4}>
           <Center>
             <ServerAvatar favicon={data.favicon} />
@@ -40,7 +34,7 @@ const Details: React.FC<DetailsProps> = ({ data }) => {
 
       <PlayerList players={data.players} />
 
-      <Divider />
+      <Divider my="lg" />
 
       <Accordion offsetIcon={false}>
         <Item label="Raw data">

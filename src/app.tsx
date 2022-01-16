@@ -2,18 +2,18 @@ import "./App.css";
 import React from "react";
 import ReactGA from "react-ga4";
 import {
-    AppShell,
-    Button,
-    Center,
-    Divider,
-    Group,
-    Header,
-    Image,
-    MantineProvider,
-    Paper,
-    Space,
-    Text as T,
-    TextInput
+  AppShell,
+  Button,
+  Center,
+  Divider,
+  Group,
+  Header,
+  Image,
+  MantineProvider,
+  Paper,
+  Space,
+  Text as T,
+  TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
 import { InfoLinks } from "./info-links";
@@ -106,7 +106,7 @@ function App() {
               </form>
             </Group>
             <InfoLinks />
-            <Divider />
+            <Divider my="lg" />
             {!paramIp && <ServerList />}
             {paramIp && <ServerStatus key={paramIp} address={paramIp} />}
           </Paper>
