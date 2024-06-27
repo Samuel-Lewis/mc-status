@@ -1,6 +1,5 @@
 import "./App.css";
 import React from "react";
-import ReactGA from "react-ga4";
 import {
   AppShell,
   Button,
@@ -20,12 +19,6 @@ import { InfoLinks } from "./info-links";
 import { ServerList } from "./server-list";
 import { ServerStatus } from "./server-state";
 import { WithTheme } from "./theme";
-
-try {
-  ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
-} catch (err) {
-  console.error("GA initialization failed", err);
-}
 
 function App() {
   const params = new URLSearchParams(window.location.search);
