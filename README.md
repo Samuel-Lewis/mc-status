@@ -1,6 +1,6 @@
 # Minecraft Server Status Checker
 
-https://samuel-lewis.com/mc-status/
+https://mc-status.samuel-lewis.com/
 
 ## Created using
 

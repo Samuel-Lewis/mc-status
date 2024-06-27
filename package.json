@@ -2,7 +2,7 @@
   "name": "mc-status",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://samuel-lewis.com/mc-status",
+  "homepage": "https://mc-status.samuel-lewis.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
